@@ -4,8 +4,8 @@ import { useRef } from "react";
 import { useLogoScrollAnimation } from "@/hooks/useLogoScrollAnimation";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/Hero";
-
-import Image from "next/image";
+import AboutUsSection from "@/components/About";
+import OurTeamSection from "@/components/OurTeam";
 
 export default function Home() {
 
@@ -28,7 +28,8 @@ export default function Home() {
        */}
 
       <section className="min-h-screen pt-32 pb-16 text-brand-muted tracking-[0.04em]">
-
+        <AboutUsSection />
+        <OurTeamSection />
       </section>
     </main>
   );
