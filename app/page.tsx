@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/Hero";
 import AboutUsSection from "@/components/About";
 import OurTeamSection from "@/components/OurTeam";
+import ProcessSection from "@/components/Process";
 
 export default function Home() {
 
@@ -27,9 +28,10 @@ export default function Home() {
        * text-brand-muted → tailwind.config.ts › theme.extend.colors.brand.muted
        */}
 
-      <section className="min-h-screen pt-32 pb-16 text-brand-muted tracking-[0.04em]">
+      <section className="min-h-screen pb-16 text-brand-muted tracking-[0.04em]">
         <AboutUsSection />
         <OurTeamSection />
+        <ProcessSection />
       </section>
     </main>
   );
