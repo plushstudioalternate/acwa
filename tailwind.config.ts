@@ -17,6 +17,7 @@ const config: Config = {
                     // Primary text (hero logo, navbar logo, body copy)
                     text: "#1a1a1a",
                     green: "#005B36",
+                    masturd: "#E68A00",
                     // Navbar background (semi-transparent version of bg — keep alpha low)
                     "nav-bg": "rgba(225, 232, 245, 0.6)",
                     // Navbar bottom border
