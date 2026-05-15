@@ -25,30 +25,16 @@ const HeroSection = forwardRef<HTMLHeadingElement>((_, ref) => {
                 {/* ── Hero content — vertically centered, left aligned ── */}
                 < div className="flex flex-1 flex-col justify-center px-[clamp(2rem,6vw,6rem)] max-w-[780px] mt-[20vh]" >
                     <h2
-                        className="font-display font-bold text-white leading-[1.05] tracking-[-0.03em] mb-6"
+                        className=" font-bold text-white leading-[1.05] tracking-[-0.03em] mb-6"
                     >
-                        Precision Engineering Solutions for Critical Applications
+                        Reviving India’s
+                        Stalled
+                        Real Estate
                     </h2>
-
-                    <p className="font-body text-white text-[clamp(0.9rem,1.2vw,1.1rem)] leading-[1.7] mb-10 max-w-[560px]">
-                        Representing GMN Germany in India, we deliver high-performance bearings, spindles, clutches, and seals — trusted by leading manufacturers across industries.
-                    </p>
-
-                    <div className="flex items-center gap-4 flex-wrap">
-                        <a href="#products" className="btn-primary">
-                            Explore Products
-                        </a>
-                        <a
-                            href="#contact"
-                            className="btn-outline !border-white/40 !text-white hover:!bg-white/10 hover:!border-white/60"
-                        >
-                            Contact Us
-                        </a>
-                    </div >
                 </div >
 
                 {/* ── Scroll indicator ── */}
-                < p className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-pulse font-body text-[0.7rem] uppercase tracking-[0.18em] text-white/50" >
+                < p className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-pulse text-[0.7rem] uppercase tracking-[0.18em] text-white/50" >
                     scroll to continue
                 </p >
             </header >
