@@ -24,13 +24,13 @@ const HeroSection = forwardRef<HTMLHeadingElement>((_, ref) => {
             >
                 {/* ── Hero content — vertically centered, left aligned ── */}
                 < div className="flex flex-1 flex-col justify-center px-[clamp(2rem,6vw,6rem)] max-w-[780px] mt-[20vh]" >
-                    <h2
+                    <h1
                         className=" font-bold text-white leading-[1.05] tracking-[-0.03em] mb-6"
                     >
                         Reviving India’s
                         Stalled
                         Real Estate
-                    </h2>
+                    </h1>
                 </div >
 
                 {/* ── Scroll indicator ── */}
