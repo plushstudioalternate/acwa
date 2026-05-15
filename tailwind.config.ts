@@ -34,15 +34,6 @@ const config: Config = {
                 },
             },
 
-            // ─── TYPOGRAPHY ────────────────────────────────────────────────────────
-            fontFamily: {
-                // Display / logo font — change the Google Fonts import in layout.tsx too
-                display: ["Cormorant Garamond", "Georgia", "serif"],
-                // Body / UI font — change the Google Fonts import in layout.tsx too
-                body: ["DM Sans", "system-ui", "sans-serif"],
-                jakarta: ['"Plus Jakarta Sans"', "sans-serif"],
-                inter: ['"Inter"', "sans-serif"],
-            },
 
             // ─── NAVBAR ────────────────────────────────────────────────────────────
             height: {
