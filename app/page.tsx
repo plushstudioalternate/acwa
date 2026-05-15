@@ -15,7 +15,7 @@ export default function Home() {
 
   useLogoScrollAnimation({ heroLogoRef, navbarRef, navLogoRef });
   return (
-    <main className="bg-white font-jakarta text-brand-text overflow-x-hidden">
+    <main className="bg-white text-brand-text overflow-x-hidden">
       {/* Fixed navbar — starts invisible, revealed by scroll */}
       <Navbar ref={navbarRef} logoRef={navLogoRef} />
 
