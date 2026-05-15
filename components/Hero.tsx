@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 
 const HeroSection = forwardRef<HTMLHeadingElement>((_, ref) => {
     return (
-        < div className="relative h-screen w-screen p-3" >
+        < div className="relative h-screen p-3" >
 
             {/* ── GMN block: anchored to top-0 left-0 of the outer wrapper (page edge) ── */}
             < div
