@@ -51,51 +51,72 @@ const CARD_CLIP =
 
 function TeamCard({ member }: { member: TeamMember }) {
     const infoCardRef = useRef<HTMLDivElement>(null);
+    const photoCardRef = useRef<HTMLDivElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
 
     const handleMouseEnter = () => {
-        // ✅ Hinge from top edge — folds away at an angle like a flap
+        // Info card falls and rotates to the right
         gsap.to(infoCardRef.current, {
-            rotationX: 90,
-            transformOrigin: "top center",
-            duration: 0.6,
+            rotation: 10,
+            xPercent: 30,
+            yPercent: 45,
+            transformOrigin: "bottom left",
+            duration: 0.55,
+            ease: "power3.inOut",
+        });
+        // Photo card tilts slightly to the left
+        gsap.to(photoCardRef.current, {
+            rotation: -6,
+            transformOrigin: "bottom center",
+            duration: 0.55,
             ease: "power3.inOut",
         });
         gsap.to(imgRef.current, {
             scale: 1.05,
-            duration: 0.6,
+            duration: 0.55,
             ease: "power3.out",
         });
     };
 
     const handleMouseLeave = () => {
         gsap.to(infoCardRef.current, {
-            rotationX: 0,
-            transformOrigin: "top center",
-            duration: 0.6,
+            rotation: 0,
+            xPercent: 0,
+            yPercent: 0,
+            transformOrigin: "bottom left",
+            duration: 0.55,
+            ease: "power3.inOut",
+        });
+        gsap.to(photoCardRef.current, {
+            rotation: 0,
+            transformOrigin: "bottom center",
+            duration: 0.55,
             ease: "power3.inOut",
         });
         gsap.to(imgRef.current, {
             scale: 1,
-            duration: 0.5,
+            duration: 0.45,
             ease: "power3.out",
         });
     };
 
     return (
-        // ✅ perspective here is what makes the rotationX look 3D instead of flat
         <div
             className="relative cursor-pointer h-[380px]"
             style={{
                 clipPath: CARD_CLIP,
-                perspective: "800px",
+                perspective: "1000px",
+                opacity: 0,
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {/* ── Photo card (always behind) ── */}
-            <div className="absolute inset-0 bg-zinc-800 flex flex-col overflow-hidden">
-                <div className="h-52 overflow-hidden flex-shrink-0">
+            {/* ── Photo card — tilts left on hover ── */}
+            <div
+                ref={photoCardRef}
+                className="absolute inset-0 flex flex-col"
+            >
+                <div className="h-full flex-shrink-0">
                     <img
                         ref={imgRef}
                         src={member.image}
@@ -103,7 +124,7 @@ function TeamCard({ member }: { member: TeamMember }) {
                         className="w-full h-full object-cover object-top grayscale"
                     />
                 </div>
-                <div className="p-5 flex flex-col gap-1">
+                {/* <div className="p-5 flex flex-col gap-1">
                     <h3 className="text-white font-bold text-base uppercase tracking-wide">
                         {member.name}
                     </h3>
@@ -113,15 +134,13 @@ function TeamCard({ member }: { member: TeamMember }) {
                     <p className="text-zinc-300 text-xs leading-relaxed mt-2">
                         {member.description}
                     </p>
-                </div>
+                </div> */}
             </div>
 
-            {/* ── Info card (front — folds away on hover) ── */}
+            {/* ── Info card — falls right on hover ── */}
             <div
                 ref={infoCardRef}
                 className="absolute inset-0 flex flex-col bg-indigo-500"
-                // ✅ backface hidden so you don't see the card "inside out" mid-rotation
-                style={{ backfaceVisibility: "hidden" }}
             >
                 <div className="px-10 py-12">
                     <h3 className="text-white font-extrabold text-base uppercase tracking-wide leading-snug">
