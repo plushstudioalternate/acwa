@@ -42,15 +42,13 @@ export default function AboutUsSection() {
             const letters = textRef.current?.querySelectorAll(".letter");
 
             if (letters?.length) {
-                gsap.set(letters, {
-                    opacity: .35
-                });
+                gsap.set(letters, { opacity: 0.35 });
 
                 gsap.to(letters, {
                     scrollTrigger: {
-                        trigger: textRef.current,
-                        start: "top 80%",
-                        end: "bottom 50%",
+                        trigger: containerRef.current,
+                        start: "top 50%", // ✅ begins as soon as section enters the viewport
+                        end: "top top",      // ✅ completes exactly when section fully occupies the screen
                         scrub: true,
                     },
                     opacity: 1,
