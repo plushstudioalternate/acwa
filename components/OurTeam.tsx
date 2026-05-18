@@ -280,7 +280,7 @@ export default function OurTeamSection() {
 
                 <h2
                     ref={headingRef}
-                    className="text-4xl lg:text-5xl font-bold leading-tight max-w-[80%]"
+                    className="text-4xl lg:text-5xl leading-tight max-w-[80%]"
                     style={{
                         color: "#4f52e8",
                         textDecorationColor: "#4f52e8",
