@@ -19,28 +19,28 @@ const TEAM_MEMBERS: TeamMember[] = [
         title: "Senior Designer",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        image: "https://i.pravatar.cc/400?img=11",
+        image: "/acwa-ceo.png",
     },
     {
         name: "Name of Founder",
         title: "Senior Designer",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        image: "https://i.pravatar.cc/400?img=32",
+        image: "/acwa-ceo.png",
     },
     {
         name: "Name of Founder",
         title: "Senior Designer",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        image: "https://i.pravatar.cc/400?img=54",
+        image: "/acwa-ceo.png",
     },
     {
         name: "Name of Founder",
         title: "Senior Designer",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        image: "https://i.pravatar.cc/400?img=68",
+        image: "/acwa-ceo.png",
     },
 ];
 
