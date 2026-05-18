@@ -96,12 +96,12 @@ export default function ProcessSection() {
             <div className="max-w-[1600px] mx-auto px-[5vw] py-32 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
 
                 {/* LEFT SIDE */}
-                <div ref={leftContentRef} className="max-w-[700px] opacity-0">
-                    <h2 className="text-white uppercase leading-[0.95] tracking-tight font-semibold text-[clamp(3rem,6vw,6rem)]">
+                <div ref={leftContentRef} className="max-w-[700px] opacity-0 text-white/80 ">
+                    <h2 className="uppercase leading-[0.95] tracking-tight  text-[clamp(3rem,6vw,6rem)]">
                         ACWA focuses on unlocking value from projects where
                         significant capital and construction already exist.
                     </h2>
-                    <p className="mt-10 text-white/90 text-lg max-w-[500px] leading-relaxed">
+                    <p className="mt-10 text-lg max-w-[500px] leading-relaxed">
                         Instead of starting from zero, we work to revive viable
                         projects through strategic intervention.
                     </p>
