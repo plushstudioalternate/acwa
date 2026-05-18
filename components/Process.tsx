@@ -29,6 +29,10 @@ const steps = [
     },
 ];
 
+// ✅ Octagon (all 4 corners clipped) + V-notch cut into bottom center
+const CARD_CLIP =
+    "polygon(0 0, 42% 0, 50% 12%, 58% 0, 100% 0, 100% 84%, 90% 100%, 10% 100%, 0 84%)";
+
 export default function ProcessSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const leftContentRef = useRef<HTMLDivElement>(null);
@@ -36,13 +40,11 @@ export default function ProcessSection() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // LEFT CONTENT FADE IN
+
+            // ── Left content fades in when section enters view ────────────────
             gsap.fromTo(
                 leftContentRef.current,
-                {
-                    opacity: 0,
-                    y: 50,
-                },
+                { opacity: 0, y: 50 },
                 {
                     opacity: 1,
                     y: 0,
@@ -50,61 +52,40 @@ export default function ProcessSection() {
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: "top 75%",
+                        start: "top 80%",
                     },
                 }
             );
 
-            // RIGHT CARDS STAGGER IN
-            gsap.fromTo(
-                cardsRef.current,
-                {
-                    opacity: 0,
-                    y: 80,
-                    scale: 0.9,
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    stagger: 0.25,
-                    duration: 1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top center",
-                        end: "bottom center",
-                        scrub: 1,
-                    },
-                }
-            );
+            // ── Cards start invisible ─────────────────────────────────────────
+            gsap.set(cardsRef.current, { opacity: 0, y: 50 });
+
+            // ── Timeline: each card animates in one by one ────────────────────
+            const tl = gsap.timeline();
+            cardsRef.current.forEach((card) => {
+                tl.to(
+                    card,
+                    { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+                    // each card starts after the previous one is mostly done
+                    "+=0.1"
+                );
+            });
+
+            // ── Single ScrollTrigger: pins the section and scrubs the timeline ─
+            ScrollTrigger.create({
+                trigger: sectionRef.current,
+                start: "top top",
+                // ✅ total scroll distance = room for each card to animate in
+                end: `+=${steps.length * 280}`,
+                pin: true,
+                anticipatePin: 1,
+                scrub: 1.2,
+                animation: tl,
+            });
+
         }, sectionRef);
 
         return () => ctx.revert();
-    }, []);
-
-    useEffect(() => {
-        const wrapper = sectionRef.current;
-
-        // ── ScrollTrigger drives the timeline ────────────────────────────────
-        // start: "top top"     = curtain is fully open (picks up exactly where curtain ends)
-        // end:   "bottom bottom" = wrapper bottom hits viewport bottom (full 150vh of pin)
-        const st = ScrollTrigger.create({
-            trigger: wrapper,
-            start: "top top",
-            end: `+=${window.innerHeight * 1.5}`,
-            pin: true,
-            anticipatePin: 1,
-            scrub: 1.5,
-            onUpdate(self) {
-                // tl.progress(self.progress);
-            },
-        });
-
-        return () => {
-            st.kill();
-            // tl.kill();
-        };
     }, []);
 
     return (
@@ -113,16 +94,13 @@ export default function ProcessSection() {
             className="relative w-full min-h-screen bg-[#DB8A00] overflow-hidden"
         >
             <div className="max-w-[1600px] mx-auto px-[5vw] py-32 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+
                 {/* LEFT SIDE */}
-                <div
-                    ref={leftContentRef}
-                    className="max-w-[700px] opacity-0"
-                >
+                <div ref={leftContentRef} className="max-w-[700px] opacity-0">
                     <h2 className="text-white uppercase leading-[0.95] tracking-tight font-semibold text-[clamp(3rem,6vw,6rem)]">
                         ACWA focuses on unlocking value from projects where
                         significant capital and construction already exist.
                     </h2>
-
                     <p className="mt-10 text-white/90 text-lg max-w-[500px] leading-relaxed">
                         Instead of starting from zero, we work to revive viable
                         projects through strategic intervention.
@@ -130,7 +108,7 @@ export default function ProcessSection() {
                 </div>
 
                 {/* RIGHT SIDE */}
-                <div className="flex flex-col items-center lg:items-end gap-0">
+                <div className="flex flex-col items-center lg:items-end ">
                     {steps.map((step, index) => (
                         <HoverCard
                             key={index}
@@ -153,11 +131,7 @@ type HoverCardProps = {
     setRef: (el: HTMLDivElement | null) => void;
 };
 
-function HoverCard({
-    title,
-    description,
-    setRef,
-}: HoverCardProps) {
+function HoverCard({ title, description, setRef }: HoverCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const descRef = useRef<HTMLParagraphElement>(null);
@@ -166,17 +140,19 @@ function HoverCard({
         const card = cardRef.current;
         const titleEl = titleRef.current;
         const descEl = descRef.current;
-
         if (!card || !titleEl || !descEl) return;
 
-        const enterAnimation = () => {
+        // ✅ Description starts hidden via GSAP (not Tailwind) so GSAP owns it
+        gsap.set(descEl, { opacity: 0, y: 10 });
+
+        const enter = () => {
+            // Title shifts up to make room
             gsap.to(titleEl, {
                 y: -18,
-                scale: 0.82,
                 duration: 0.35,
                 ease: "power3.out",
             });
-
+            // Description fades in below
             gsap.to(descEl, {
                 opacity: 1,
                 y: 0,
@@ -185,28 +161,25 @@ function HoverCard({
             });
         };
 
-        const leaveAnimation = () => {
+        const leave = () => {
             gsap.to(titleEl, {
                 y: 0,
-                scale: 1,
-                duration: 0.35,
+                duration: 0.3,
                 ease: "power3.out",
             });
-
             gsap.to(descEl, {
                 opacity: 0,
-                y: 12,
+                y: 10,
                 duration: 0.25,
                 ease: "power3.out",
             });
         };
 
-        card.addEventListener("mouseenter", enterAnimation);
-        card.addEventListener("mouseleave", leaveAnimation);
-
+        card.addEventListener("mouseenter", enter);
+        card.addEventListener("mouseleave", leave);
         return () => {
-            card.removeEventListener("mouseenter", enterAnimation);
-            card.removeEventListener("mouseleave", leaveAnimation);
+            card.removeEventListener("mouseenter", enter);
+            card.removeEventListener("mouseleave", leave);
         };
     }, []);
 
@@ -216,51 +189,26 @@ function HoverCard({
                 cardRef.current = el;
                 setRef(el);
             }}
-            className="
-        relative
-        w-[320px]
-        h-[140px]
-        bg-[#E9D9C6]
-        overflow-hidden
-        cursor-pointer
-        opacity-0
-        group
-      "
-            style={{
-                clipPath:
-                    "polygon(0 0, 88% 0, 100% 12%, 100% 88%, 88% 100%, 12% 100%, 0 88%, 0 12%)",
-            }}
+            className="relative w-[320px] h-[150px] bg-[#E9D9C6] cursor-pointer overflow-hidden"
+            style={{ clipPath: CARD_CLIP }}
         >
-            {/* Decorative Notches */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-8 bg-[#DB8A00] rotate-45" />
-            <div className="absolute bottom-0 left-1/2 translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-[#DB8A00] rotate-45" />
+            {/* ✅ Flex column: title on top half, description on bottom half */}
+            {/* overflow-hidden on the outer div + absolute children keeps them
+                from ever visually overlapping outside their regions */}
+            <div className="relative w-full h-full flex flex-col items-center justify-center px-8 gap-2">
 
-            {/* CONTENT */}
-            <div className="relative w-full h-full flex flex-col items-center justify-center px-8">
+                {/* Title — shifts up on hover via GSAP y transform */}
                 <h3
                     ref={titleRef}
-                    className="
-            text-[#DB8A00]
-            text-4xl
-            font-light
-            tracking-wide
-            absolute
-          "
+                    className="text-[#DB8A00] text-4xl font-light tracking-wide leading-none"
                 >
                     {title}
                 </h3>
 
+                {/* Description — fades in below the title on hover */}
                 <p
                     ref={descRef}
-                    className="
-            text-center
-            text-[#DB8A00]
-            text-sm
-            leading-relaxed
-            opacity-0
-            translate-y-3
-            max-w-[220px]
-          "
+                    className="text-center text-[#DB8A00] text-xs leading-relaxed max-w-[220px]"
                 >
                     {description}
                 </p>
