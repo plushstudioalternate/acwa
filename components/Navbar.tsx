@@ -93,10 +93,15 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ logoRef }, ref) => {
                     onClick={() => setIsOpen(true)}
                     aria-label="Open menu"
                     aria-expanded={isOpen}
-                    className="cursor-pointer rounded-full border border-white/40 bg-transparent px-[1.1rem] py-[0.4rem] font-body text-[0.75rem] font-medium tracking-[0.12em] text-white transition-[background,border-color] duration-200 hover:bg-white/10 hover:border-white/60"
+                    className="inline-block md:hidden cursor-pointer rounded-full border border-white/40 bg-transparent px-[1.1rem] py-[0.4rem] font-body text-[0.75rem] font-medium tracking-[0.12em] text-white transition-[background,border-color] duration-200 hover:bg-white/10 hover:border-white/60"
                 >
                     MENU
                 </button>
+                <div className="hidden md:flex gap-8 items-center uppercase text-brand-blue">
+                    <a href="#">home</a>
+                    <a href="#">our projects</a>
+                    <a href="#">contact us</a>
+                </div>
             </nav>
 
             {/* ── Full-screen overlay ── */}
