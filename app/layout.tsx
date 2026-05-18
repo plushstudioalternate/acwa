@@ -7,6 +7,8 @@ import "./globals.css";
 const nippo = localFont({
   src: '../fonts/Nippo-Regular.woff2', // Adjust path
   variable: '--font-nippo', // Optional: for CSS variable support
+  weight: '378', // Adjust if you have multiple weights
+  style: 'normal',
 });
 
 export const metadata: Metadata = {
