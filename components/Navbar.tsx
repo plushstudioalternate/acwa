@@ -97,7 +97,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ logoRef }, ref) => {
                 >
                     MENU
                 </button>
-                <div className="hidden md:flex gap-8 items-center uppercase text-brand-blue">
+                <div className="hidden md:flex font-light gap-8 items-center uppercase text-brand-blue">
                     <a href="#">home</a>
                     <a href="#">our projects</a>
                     <a href="#">contact us</a>
