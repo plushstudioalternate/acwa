@@ -19,6 +19,7 @@ const config: Config = {
                     green: "#005B36",
                     masturd: "#E68A00",
                     blue: "#554FF1",
+                    red: '#FF5E31',
                     // Navbar background (semi-transparent version of bg — keep alpha low)
                     "nav-bg": "rgba(225, 232, 245, 0.6)",
                     // Navbar bottom border
