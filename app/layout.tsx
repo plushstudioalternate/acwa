@@ -5,10 +5,25 @@ import "./globals.css";
 
 // Configure local font
 const nippo = localFont({
-  src: '../fonts/Nippo-Regular.woff2', // Adjust path
-  variable: '--font-nippo', // Optional: for CSS variable support
-  weight: '378', // Adjust if you have multiple weights
-  style: 'normal',
+  src: [
+    {
+      path: '../fonts/Nippo-Regular.woff2',
+      weight: '378', // Your custom regular weight mapping
+      style: 'normal',
+    },
+    {
+      path: '../fonts/Nippo-Light.woff2', // Adjust to your actual filename
+      weight: '300', // Standard numeric mapping for ExtraLight
+      style: 'normal',
+    },
+    {
+      path: '../fonts/Nippo-Extralight.woff2', // Adjust to your actual filename
+      weight: '200', // Standard numeric mapping for ExtraLight
+      style: 'normal',
+    }
+  ],
+  variable: '--font-nippo',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
