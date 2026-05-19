@@ -45,7 +45,7 @@ export default function FooterSection() {
         >
             <div className="w-full overflow-hidden pt-8">
                 <div ref={marqueeTrackRef} className="whitespace-nowrap will-change-transform">
-                    <span className="text-[11vw] font-bold leading-[1.1] select-none">
+                    <span className="text-[11vw] font-light leading-[1.1] select-none">
                         {repeated}
                     </span>
                 </div>
