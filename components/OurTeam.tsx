@@ -273,7 +273,7 @@ export default function OurTeamSection() {
             <div className="mb-10">
                 <span
                     ref={labelRef}
-                    className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium"
+                    className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-light"
                 >
                     Our Team
                 </span>
