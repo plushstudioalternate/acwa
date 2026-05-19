@@ -9,6 +9,7 @@ import OurTeamSection from "@/components/OurTeam";
 import ProcessSection from "@/components/Process";
 import PhilosophySection from "@/components/Philosophy";
 import FooterSection from "@/components/Footer";
+import ProjectsCarousel from "@/components/Projects";
 
 export default function Home() {
 
@@ -34,6 +35,7 @@ export default function Home() {
         <AboutUsSection />
         <OurTeamSection />
         <ProcessSection />
+        <ProjectsCarousel />
         <PhilosophySection />
       </section>
       <FooterSection />
