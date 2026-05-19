@@ -132,14 +132,14 @@ export default function PhilosophySection() {
                         <div ref={missionRef} className="w-4/5 md:w-[30%] flex flex-col gap-4">
                             <h3 className="uppercase font-thin ">mission</h3>
                             <div className="h-[1.5px] bg-brand-red w-full" />
-                            <p className="text-[20px] leading-snug">
+                            <p className="text-[20px] leading-snug font-light">
                                 To revive viable stalled projects through structured execution and responsible recovery.
                             </p>
                         </div>
                         <div ref={visionRef} className="w-4/5 md:w-[30%] flex flex-col gap-4">
                             <h3 className="uppercase font-thin ">vision</h3>
                             <div className="h-[1.5px] bg-brand-red w-full" />
-                            <p className="text-[20px] leading-snug">
+                            <p className="text-[20px] leading-snug font-light">
                                 To revive viable stalled projects through structured execution and responsible recovery.
                             </p>
                         </div>
