@@ -195,12 +195,12 @@ function HoverCard({ title, description, setRef }: HoverCardProps) {
             {/* ✅ Flex column: title on top half, description on bottom half */}
             {/* overflow-hidden on the outer div + absolute children keeps them
                 from ever visually overlapping outside their regions */}
-            <div className="relative w-full h-full flex flex-col items-center justify-center px-8 gap-2">
+            <div className="relative w-full h-full flex flex-col items-center justify-center px-8 gap-1">
 
                 {/* Title — shifts up on hover via GSAP y transform */}
                 <h3
                     ref={titleRef}
-                    className="text-[#DB8A00] text-4xl font-light tracking-wide leading-none"
+                    className="text-[#DB8A00] text-4xl font-light tracking-wide leading-none mt-4"
                 >
                     {title}
                 </h3>
