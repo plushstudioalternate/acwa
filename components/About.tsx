@@ -69,7 +69,7 @@ export default function AboutUsSection() {
                 <h2
                     ref={textRef}
                     className="leading-tight md:leading-snug"
-                    style={{ fontWeight: 600 }}
+                    style={{ fontWeight: 600, fontSize: "clamp(1.75rem, 3.5vw + 0.5rem, 3.25rem)" }}
                 >
                     {paragraph.map((segment, segmentIndex) => (
                         <span key={segmentIndex}>
