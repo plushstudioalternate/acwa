@@ -15,7 +15,7 @@ const HeroSection = forwardRef<HTMLHeadingElement>((_, ref) => {
 
             {/* ── Inner header: fills the padded space, rounded corners visible ── */}
             < header
-                className="relative flex h-full w-full flex-col overflow-hidden rounded-lg bg-[url('/images/ball-bearings-wallpaper.png')] bg-[#0d1b3e75] bg-blend-multiply"
+                className="relative flex h-full w-full flex-col overflow-hidden rounded-lg bg-[url('/pexels-keat-construction.jpg')] bg-[#0d1b3e4b] bg-blend-multiply"
                 style={{
                     backgroundSize: "cover",
                     backgroundPosition: "center",
