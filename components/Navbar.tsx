@@ -77,7 +77,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ logoRef }, ref) => {
             <nav
                 ref={ref}
                 aria-label="Main navigation"
-                className="fixed inset-x-0 top-0 z-[100] flex h-navbar items-center justify-between border-b border-white/20 bg-blue-light px-8 backdrop-blur-md opacity-0 pointer-events-none"
+                className="fixed inset-x-0 top-0 z-[100] flex h-navbar items-center bg-white/50 justify-between border-b border-white/20 bg-blue-light px-8 backdrop-blur-md opacity-0 pointer-events-none"
             >
                 <div className="flex h-full items-center">
                     <span
