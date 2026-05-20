@@ -6,7 +6,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 const paragraph = [
     {
-        text: "We work on India's most complex real estate situations,",
+        text: "We work on India's most complex real estate situations, \n",
         className: "text-white",
     },
     {
@@ -18,7 +18,7 @@ const paragraph = [
         className: "text-white",
     },
     {
-        text: " capital deployment, restructuring",
+        text: " capital deployment, \n restructuring",
         className: "text-brand-masturd",
     },
     {
@@ -73,21 +73,33 @@ export default function AboutUsSection() {
                 >
                     {paragraph.map((segment, segmentIndex) => (
                         <span key={segmentIndex}>
-                            {segment.text.split(" ").map((word, wordIndex) => (
-                                <span
-                                    key={wordIndex}
-                                    className="inline-block mr-[0.25em] mb-[0.2em]"
-                                >
-                                    {word.split("").map((char, charIndex) => (
-                                        <span
-                                            key={charIndex}
-                                            className={`letter transition-none ${segment.className}`}
-                                        >
-                                            {char}
-                                        </span>
-                                    ))}
-                                </span>
-                            ))}
+                            {segment.text.split(" ").map((word, wordIndex) => {
+                                // If the token is a newline, render a break
+                                if (word === "\n") {
+                                    return <br key={wordIndex} />;
+                                }
+
+                                // Handle words that have \n embedded, e.g. "text\n"
+                                const parts = word.split("\n");
+
+                                return parts.map((part, partIndex) => (
+                                    <span key={`${wordIndex}-${partIndex}`}>
+                                        {partIndex > 0 && <br />}
+                                        {part.length > 0 && (
+                                            <span className="inline-block mr-[0.25em] mb-[0.2em]">
+                                                {part.split("").map((char, charIndex) => (
+                                                    <span
+                                                        key={charIndex}
+                                                        className={`letter transition-none ${segment.className}`}
+                                                    >
+                                                        {char}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        )}
+                                    </span>
+                                ));
+                            })}
                         </span>
                     ))}
                 </h2>
