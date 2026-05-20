@@ -95,7 +95,7 @@ export default function PhilosophySection() {
     return (
         <section
             ref={containerRef}
-            className="w-full min-h-[100dvh] text-brand-red px-[4vw] mt-[10vh]"
+            className="w-full min-h-[100dvh] text-brand-red px-[4vw] flex items-center"
         >
 
             <div className=" mx-auto w-full flex justify-between items-start">
