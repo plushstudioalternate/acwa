@@ -45,7 +45,7 @@ export default function FooterSection({ curtainRef }: Props) {
     return (
         <footer
             ref={footerRef}
-            className="sticky bottom-0 z-0 w-full min-h-[100dvh] bg-[#c2d4d0] text-[#0d3d22] overflow-hidden flex flex-col"
+            className="sticky bottom-0 z-0 w-full min-h-[100dvh] bg-[#D0DCDC] text-[#0d3d22] overflow-hidden flex flex-col"
         >
             <div className="w-full overflow-hidden pt-8">
                 <div ref={marqueeTrackRef} className="whitespace-nowrap will-change-transform">
