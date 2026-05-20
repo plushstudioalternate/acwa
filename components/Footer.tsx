@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-export default function FooterSection() {
-    const footerRef = useRef<HTMLElement>(null);
+interface Props { curtainRef: React.RefObject<HTMLElement | null> }
+
+export default function FooterSection({ curtainRef }: Props) {
+    const footerRef = useRef<HTMLElement | null>(null);
     const marqueeTrackRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -23,9 +25,9 @@ export default function FooterSection() {
                     x: -450,
                     ease: "none",
                     scrollTrigger: {
-                        trigger: footerRef.current,
-                        start: "top bottom",   // footer natural position enters viewport
-                        end: "bottom top",     // footer natural position exits viewport
+                        trigger: curtainRef.current,
+                        start: "80% top",   // when that section is 80% scrolled past the top
+                        end: "bottom top",  // when it fully exits
                         scrub: 2,
                     },
                 }
