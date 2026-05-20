@@ -10,6 +10,8 @@ export default function FooterSection({ curtainRef }: Props) {
     const footerRef = useRef<HTMLElement | null>(null);
     const marqueeTrackRef = useRef<HTMLDivElement>(null);
 
+    const clipPathString = "polygon(0% 0%, 85% 0%, 100% 15%, 100% 100%, 15% 100%, 0% 85%)";
+
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
@@ -54,7 +56,7 @@ export default function FooterSection({ curtainRef }: Props) {
             </div>
 
             <div className="px-[4vw] mt-10 flex items-start gap-5">
-                <div className="w-14 h-14 bg-[#0d3d22] rounded-[4px] flex-shrink-0" />
+                <div style={{ clipPath: clipPathString }} className="w-14 h-14 bg-[#0d3d22] flex-shrink-0" />
                 <div>
                     <p className="font-semibold text-sm tracking-widest uppercase">Ample Tiger</p>
                     <p className="text-[11px] tracking-widest uppercase opacity-50 mt-0.5">Founder</p>
