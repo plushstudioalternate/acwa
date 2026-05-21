@@ -45,7 +45,7 @@ export default function FooterSection({ curtainRef }: Props) {
             className="sticky bottom-0 z-0 w-full min-h-[100dvh] bg-[#D0DCDC] text-[#0d3d22] overflow-hidden flex flex-col"
         >
             {/* Marquee — untouched */}
-            <div className="w-full overflow-hidden pt-8">
+            <div className="w-full overflow-hidden pt-12 md:pt-24">
                 <div ref={marqueeTrackRef} className="whitespace-nowrap will-change-transform">
                     <span className="text-[11vw] font-light leading-[1.1] select-none">
                         {repeated}
@@ -57,7 +57,7 @@ export default function FooterSection({ curtainRef }: Props) {
             <div ref={innerRef} className="flex flex-col flex-1 will-change-transform">
                 <div className="px-[4vw] mt-10 flex items-start gap-5">
                     <div style={{ clipPath: clipPathString }} className="w-14 h-14 bg-[#0d3d22] flex-shrink-0" />
-                    <div>
+                    <div className="mt-4">
                         <p className="font-semibold text-sm tracking-widest uppercase">Ample Tiger</p>
                         <p className="text-[11px] tracking-widest uppercase opacity-50 mt-0.5">Founder</p>
                         <p className="mt-4 text-lg italic">"Revival is responsibility."</p>
