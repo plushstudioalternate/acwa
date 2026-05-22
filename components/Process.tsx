@@ -117,6 +117,7 @@ export default function ProcessSection() {
                             setRef={(el) => {
                                 cardsRef.current[index] = el;
                             }}
+                            pulseDelay={index * 2.55}
                         />
                     ))}
                 </div>
@@ -129,12 +130,14 @@ type HoverCardProps = {
     title: string;
     description: string;
     setRef: (el: HTMLDivElement | null) => void;
+    pulseDelay: number;
 };
 
-function HoverCard({ title, description, setRef }: HoverCardProps) {
+function HoverCard({ title, description, setRef, pulseDelay }: HoverCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const descRef = useRef<HTMLParagraphElement>(null);
+    const ringsRef = useRef<(HTMLDivElement | null)[]>([null, null, null]);
 
     useEffect(() => {
         const card = cardRef.current;
@@ -142,36 +145,57 @@ function HoverCard({ title, description, setRef }: HoverCardProps) {
         const descEl = descRef.current;
         if (!card || !titleEl || !descEl) return;
 
-        // ✅ Description starts hidden via GSAP (not Tailwind) so GSAP owns it
-        gsap.set(descEl, { opacity: 0, y: 10 });
+        gsap.set(descEl, { opacity: 0, y: 12, filter: "blur(5px)" });
 
+        // ── Pulse rings: each one expands and fades, staggered within the card ─
+        // pulseDelay offsets the whole card's cycle so they fire top → bottom
+        ringsRef.current.forEach((ring, i) => {
+            if (!ring) return;
+            gsap.fromTo(
+                ring,
+                { scale: 0.8, opacity: 0.7 },
+                {
+                    scale: 1.75,
+                    opacity: 0,
+                    duration: 2.2,
+                    ease: "power2.out",
+                    repeat: -1,
+                    delay: pulseDelay + i * 0.65, // rings within card fire sequentially
+                }
+            );
+        });
+
+        // ── Hover in ──────────────────────────────────────────────────────────
         const enter = () => {
-            // Title shifts up to make room
             gsap.to(titleEl, {
-                y: -18,
-                duration: 0.35,
+                opacity: 0,
+                y: -8,
+                duration: 0.45,
                 ease: "power3.out",
             });
-            // Description fades in below
             gsap.to(descEl, {
                 opacity: 1,
                 y: 0,
-                duration: 0.35,
-                ease: "power3.out",
+                filter: "blur(0px)",
+                duration: 0.6,
+                ease: "power4.out",
             });
         };
 
+        // ── Hover out ─────────────────────────────────────────────────────────
         const leave = () => {
             gsap.to(titleEl, {
+                opacity: 1,
                 y: 0,
-                duration: 0.3,
+                duration: 0.5,
                 ease: "power3.out",
             });
             gsap.to(descEl, {
                 opacity: 0,
-                y: 10,
-                duration: 0.25,
-                ease: "power3.out",
+                y: 12,
+                filter: "blur(5px)",
+                duration: 0.35,
+                ease: "power2.in",
             });
         };
 
@@ -180,38 +204,59 @@ function HoverCard({ title, description, setRef }: HoverCardProps) {
         return () => {
             card.removeEventListener("mouseenter", enter);
             card.removeEventListener("mouseleave", leave);
+            gsap.killTweensOf(ringsRef.current);
         };
-    }, []);
+    }, [pulseDelay]);
 
     return (
-        <div
-            ref={(el) => {
-                cardRef.current = el;
-                setRef(el);
-            }}
-            className="relative w-[320px] h-[150px] bg-[#E9D9C6] cursor-pointer overflow-hidden"
-            style={{ clipPath: CARD_CLIP }}
-        >
-            {/* ✅ Flex column: title on top half, description on bottom half */}
-            {/* overflow-hidden on the outer div + absolute children keeps them
-                from ever visually overlapping outside their regions */}
-            <div className="relative w-full h-full flex flex-col items-center justify-center px-8 gap-1">
+        // Wrapper has no overflow-hidden so rings bleed outside the card edges
+        <div className="relative flex items-center justify-center">
 
-                {/* Title — shifts up on hover via GSAP y transform */}
-                <h3
-                    ref={titleRef}
-                    className="text-[#DB8A00] text-4xl font-light tracking-wide leading-none mt-4"
-                >
-                    {title}
-                </h3>
+            {/* Rings — ellipse-shaped to echo the card's proportions */}
+            {[0,].map((i) => (
+                <div
+                    key={i}
+                    ref={(el) => { ringsRef.current[i] = el; }}
+                    className="absolute pointer-events-none"
+                    style={{
+                        width: "320px",
+                        height: "150px",
+                        clipPath: CARD_CLIP,
+                        border: "2px solid #E9D9C6",
+                        opacity: 0,
+                        zIndex: 0,
+                    }}
+                />
+            ))}
 
-                {/* Description — fades in below the title on hover */}
-                <p
-                    ref={descRef}
-                    className="text-center text-[#DB8A00] text-xs leading-relaxed max-w-[220px]"
-                >
-                    {description}
-                </p>
+            {/* Card sits above the rings */}
+            <div
+                ref={(el) => {
+                    cardRef.current = el;
+                    setRef(el);
+                }}
+                className="relative w-[320px] h-[150px] bg-[#E9D9C6] cursor-pointer overflow-hidden"
+                style={{ clipPath: CARD_CLIP, zIndex: 1 }}
+            >
+                {/* Title */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <h3
+                        ref={titleRef}
+                        className="text-[#DB8A00] text-4xl font-light tracking-wide leading-none"
+                    >
+                        {title}
+                    </h3>
+                </div>
+
+                {/* Description — always centered, blur-fades in on hover */}
+                <div className="absolute inset-0 flex items-center justify-center px-8">
+                    <p
+                        ref={descRef}
+                        className="text-center text-[#DB8A00] text-xs leading-relaxed max-w-[220px]"
+                    >
+                        {description}
+                    </p>
+                </div>
             </div>
         </div>
     );
